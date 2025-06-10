@@ -73,10 +73,11 @@ export default function Dashboard({ data }: { data: LoadData[] }) {
           total += 1;
         });
         if (minDate && maxDate) {
-          let d = new Date(minDate);
-          while (d <= maxDate) {
-            const dayOfWeek = d.toLocaleDateString('en-US', { weekday: 'long' });
-            const dateOnly = d.toISOString().split('T')[0];
+          const currentDate = new Date(minDate);
+          const endDate = new Date(maxDate);
+          while (currentDate <= endDate) {
+            const dayOfWeek = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+            const dateOnly = currentDate.toISOString().split('T')[0];
             const key = `${dayOfWeek} ${dateOnly}`;
             if (!byDayDate[key]) {
               byDayDate[key] = {
@@ -86,7 +87,7 @@ export default function Dashboard({ data }: { data: LoadData[] }) {
                 dayOfWeek,
               };
             }
-            d.setDate(d.getDate() + 1);
+            currentDate.setDate(currentDate.getDate() + 1);
           }
         }
         const rowDataArr = Object.values(byDayDate).sort((a, b) => a.date.localeCompare(b.date));
