@@ -82,3 +82,4 @@ export default function CSVUpload({ onDataLoaded }: CSVUploadProps) {
       </div>
     </div>
   );
+}
